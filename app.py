@@ -23,32 +23,9 @@ def index():
     return render_template('index.html', Geo_pontos=geo)
 
 
-#Página de informação do grupo#
-@app.route('/sobre')
-def sobreNos():
-    return render_template('sobre.html')
 
+#Página de informação do grupo
+#@app.route('/sobre')
+#def sobreNos():
+ #   return render_template('sobre.html')
 
-#Página de aprofundamento do tema
-@app.route('/aprofundando')
-def aprofundando():
-    return render_template('aprofundando.html')
-
-
-#Criação de postagens
-@app.route('/create', methods=('GET', 'POST'))
-def create():
-    erro = None
-    if request.method == 'POST':
-        contato = request.form.get('contato')
-        geo = request.form.get('geo')
-        data = request.form.get('data')
-        if contato == ''or geo =='None':
-            #return render_template('create.html')
-            erro = 'Erro no preenchimento ou validação da sua localização.'
-
-        else:
-            db.execute("INSERT INTO posts (contato,geo) VALUES (:contato, :geo)" , {"contato": contato, "geo": geo})
-            db.commit()
-            return redirect(url_for('index'))
-    return render_template('create.html',erro=erro)
